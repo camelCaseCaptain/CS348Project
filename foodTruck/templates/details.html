@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Details about {{  my_food_truck.name }}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ my_food_truck.name }} located at {{ my_food_truck.location }}</h1>
+    <p>Opens at: {{ my_food_truck.openTime }}:00 am</p>
+    <p>Closes at: {{ my_food_truck.closeTime }}:00 pm</p>
+    <p><a href="/menu/{{ my_food_truck.id }}">Menu</a></p>
+    <p><a href="/edit_truck/{{ my_food_truck.id }}">EDIT</a> Food Truck</p>
+    <p>Back to <a href="/trucks">Food Trucks</a></p>
+
+{%  endblock %}

@@ -1,0 +1,23 @@
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Open Time</th>
+        <th>Close Time</th>
+        <th>Owner</th>
+        <th>ID</th>
+    </tr>
+    {% for x in myTrucks %}
+    <tr>
+        <td>{{ x.name }}</td>
+        <td>{{ x.location }}</td>
+        <td>{{ x.latitude }}</td>
+        <td>{{ x.longitude }}</td>
+        <td>{{ x.openTime }}</td>
+        <td>{{ x.closeTime }}</td>
+        <td>{{ x.owner }}</td>
+    </tr>
+    {% endfor %}
+</table>

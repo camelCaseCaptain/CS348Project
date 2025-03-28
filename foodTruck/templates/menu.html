@@ -1,0 +1,15 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Gordo - {{ my_food_truck.name }}'s Menu
+{% endblock %}
+
+{% block content %}
+
+<h1>Items</h1>
+<ul>
+    {% for x in menu_items %}
+        <li>{{ x.item_name }} - ${{ x.price }} : {{ x.description }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

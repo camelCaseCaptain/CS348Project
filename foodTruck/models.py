@@ -17,6 +17,10 @@ class FoodTruck(models.Model):
     closeTime = models.DecimalField(max_digits=2, decimal_places=0)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    indexes = [
+        models.Index(fields=['name', 'location']),
+    ]
+
     def __str__(self):
         return self.name
 

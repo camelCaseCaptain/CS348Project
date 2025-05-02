@@ -4,6 +4,7 @@ from .models import FoodTruck, Menu, User
 from django.shortcuts import render, redirect
 from .forms import FoodTruckForm, UserForm, MenuForm
 from django.db import connection
+from django.db import transaction
 
 def search_food_trucks(request):
     search_name = request.GET.get('name', '')
@@ -71,8 +72,12 @@ def create_truck(request):
     if request.method == 'POST':
         form = FoodTruckForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            try:
+                with transaction.atomic():
+                    form.save()
+                return redirect('/')
+            except Exception as e:
+                form.add_error(None, f"Database error: {str(e)}")
     else:
         form = FoodTruckForm()
     return render(request, 'create_truck.html', {'form': form})
@@ -81,8 +86,12 @@ def create_menu(request):
     if request.method == 'POST':
         form = MenuForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            try:
+                with transaction.atomic():
+                    form.save()
+                return redirect('/')
+            except Exception as e:
+                form.add_error(None, f"Database error: {str(e)}")
     else:
         form = MenuForm()
     return render(request, 'create_menu.html', {'form': form})
@@ -91,8 +100,12 @@ def create_user(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            try:
+                with transaction.atomic():
+                    form.save()
+                return redirect('/')
+            except Exception as e:
+                form.add_error(None, f"Database error: {str(e)}")
     else:
         form = UserForm()
     return render(request, 'create_user.html', {'form': form})
@@ -102,8 +115,12 @@ def edit_truck(request, id):
     if request.method == 'POST':
         form = FoodTruckForm(request.POST, instance=my_food_truck)
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            try:
+                with transaction.atomic():
+                    form.save()
+                return redirect('/')
+            except Exception as e:
+                form.add_error(None, f"Database error: {str(e)}")
     else:
         form = FoodTruckForm(instance=my_food_truck)
     return render(request, 'edit_truck.html', {'form': form})
